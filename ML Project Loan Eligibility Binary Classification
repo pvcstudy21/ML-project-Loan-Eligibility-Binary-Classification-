@@ -40,8 +40,30 @@ import pickle
 import warnings
 warnings.filterwarnings('ignore')
 
-
 # Data Gathering
 
 df = pd.read_csv(r"C:\Users\Dell\Downloads\Loan_Data.csv")
 print(df)
+
+# Exploratory Data Analysis
+
+print(df.shape)                                # gives number of rows and colomns
+print(df.columns)                              # give all the column names
+print(df["Loan_Amount_Term"].unique())
+print(df["Property_Area"].unique())
+print(df["Credit_History"].unique())
+
+print(df.describe())                           # give all the statistical information
+print(df.info())                               # gives all the basic information
+
+print(df.isna().sum())                         # ckecks if the column have missing values
+
+# checking if any columns have outliers
+print(sns.boxenplot(df["ApplicantIncome"]))
+print(sns.boxenplot(df["CoapplicantIncome"]))
+print(sns.boxenplot(df["LoanAmount"]))
+print(sns.boxenplot(df["Loan_Amount_Term"]))
+print(sns.boxenplot(df["Credit_History"]))
+
+# finding correlation
+print(sns.heatmap(df.corr(),annot=True))
