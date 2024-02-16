@@ -1,0 +1,47 @@
+# Importing Libraries
+
+# for data manipulation
+import numpy as np
+import pandas as pd
+
+# for data visualizations
+import matplotlib.pyplot as plt
+import seaborn as sns
+import plotly.express as px
+import statsmodels.api as sm
+
+# for data preprocessing
+from sklearn.preprocessing import LabelEncoder,OneHotEncoder
+from sklearn.preprocessing import MinMaxScaler, StandardScaler
+
+# for model training 
+
+from sklearn.model_selection import train_test_split,GridSearchCV,RandomizedSearchCV
+from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier,plot_tree
+from sklearn.ensemble import RandomForestClassifier,AdaBoostClassifier
+from sklearn.svm import SVC
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.naive_bayes import GaussianNB,BernoulliNB
+
+# for model evaluation 
+
+from sklearn.metrics import accuracy_score,confusion_matrix,classification_report
+from sklearn.metrics import roc_curve,roc_auc_score
+
+# for basic statistical operations
+
+from statsmodels.stats.outliers_influence import variance_inflation_factor
+from scipy import stats
+from scipy.stats import shapiro
+
+# miscellaneous
+import pickle
+import warnings
+warnings.filterwarnings('ignore')
+
+
+# Data Gathering
+
+df = pd.read_csv(r"C:\Users\Dell\Downloads\Loan_Data.csv")
+print(df)
