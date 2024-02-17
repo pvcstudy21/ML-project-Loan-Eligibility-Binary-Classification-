@@ -80,3 +80,9 @@ print(outlier_count)
 
 # finding correlation
 print(sns.heatmap(df.corr(),annot=True))
+
+# Feature Engineering
+
+# droping unnecessary collumns
+
+df = df.drop(["Loan_ID"],axis=1)
