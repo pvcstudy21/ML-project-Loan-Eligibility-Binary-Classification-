@@ -166,3 +166,10 @@ new_df["Self_Employed"] = label_encoder_Self_Employed.fit_transform(new_df["Self
 new_df["Loan_Status"] = label_encoder_Loan_Status.fit_transform(new_df["Loan_Status"])
 
 new_df = pd.get_dummies(new_df,columns = ["Property_Area"])               # OneHotEncoding
+
+print(new_df.info())                                                             # to check if the text data is converted into numerical
+
+# scaling
+
+std_scaler = StandardScaler()
+std_scaler.fit_transform(new_df)
