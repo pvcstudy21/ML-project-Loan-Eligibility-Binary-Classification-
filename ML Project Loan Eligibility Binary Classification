@@ -148,3 +148,19 @@ new_df["Credit_History"] = new_df["Credit_History"].fillna(1.0)
 
 print(new_df.isna().sum())
 print(new_df.info())
+
+# Encoding
+
+label_encoder_Gender = LabelEncoder()
+label_encoder_Married = LabelEncoder()
+label_encoder_Dependents = LabelEncoder()
+label_encoder_Education = LabelEncoder()
+label_encoder_Self_Employed = LabelEncoder()
+label_encoder_Loan_Status = LabelEncoder()
+
+new_df["Gender"] = label_encoder_Gender.fit_transform(new_df["Gender"])
+new_df["Married"] = label_encoder_Married.fit_transform(new_df["Married"])
+new_df["Dependents"] = label_encoder_Dependents.fit_transform(new_df["Dependents"])
+new_df["Education"] = label_encoder_Education.fit_transform(new_df["Education"])
+new_df["Self_Employed"] = label_encoder_Self_Employed.fit_transform(new_df["Self_Employed"])
+new_df["Loan_Status"] = label_encoder_Loan_Status.fit_transform(new_df["Loan_Status"])
