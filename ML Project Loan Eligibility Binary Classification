@@ -164,3 +164,5 @@ new_df["Dependents"] = label_encoder_Dependents.fit_transform(new_df["Dependents
 new_df["Education"] = label_encoder_Education.fit_transform(new_df["Education"])
 new_df["Self_Employed"] = label_encoder_Self_Employed.fit_transform(new_df["Self_Employed"])
 new_df["Loan_Status"] = label_encoder_Loan_Status.fit_transform(new_df["Loan_Status"])
+
+new_df = pd.get_dummies(new_df,columns = ["Property_Area"])               # OneHotEncoding
