@@ -101,3 +101,50 @@ def remove_outliers(column):
 new_df = df.apply(lambda col: remove_outliers(col) if np.issubdtype(col.dtype, np.number) else col)
 
 print(new_df)
+
+# Handle missing values
+
+new_df.isna().sum()                          # ckecks if the column have missing values
+
+# Gender columns
+print(new_df["Gender"].value_counts())
+new_df["Gender"] = new_df["Gender"].fillna("Male")
+
+# Married column
+print(new_df["Married"].value_counts())
+new_df["Married"] = new_df["Married"].fillna("Yes")
+
+# Dependents column
+print(new_df["Dependents"].value_counts())
+new_df["Dependents"] = new_df["Dependents"].fillna("0")
+
+# Self_Employed column
+print(new_df["Self_Employed"].value_counts())
+new_df["Self_Employed"] = new_df["Self_Employed"].fillna("No")
+
+# ApplicantIncome column
+print(new_df["ApplicantIncome"].value_counts())
+new_df["ApplicantIncome"] = new_df["ApplicantIncome"].fillna(4124.723404)           # mean value taken by new_df.describe()
+
+# CoapplicantIncome
+print(new_df["CoapplicantIncome"].value_counts())
+new_df["CoapplicantIncome"] = new_df["CoapplicantIncome"].fillna(0)
+
+# LoanAmount
+print(new_df["LoanAmount"].value_counts())
+new_df["LoanAmount"] = new_df["LoanAmount"].fillna(129.000000)                      # mean value taken by new_df.describe()
+
+# Loan_Amount_Term
+print(new_df["Loan_Amount_Term"].value_counts())         
+print(df["Loan_Amount_Term"].value_counts())                                       # ckecking value count before outlier handling
+
+new_df["Loan_Amount_Term"] = df["Loan_Amount_Term"].fillna(360.0)                  # used df instead of new_df so data will get different values
+
+# Credit_History
+df["Credit_History"].value_counts()
+new_df["Credit_History"] = new_df["Credit_History"].fillna(1.0)
+
+# checking data after imputation
+
+print(new_df.isna().sum())
+print(new_df.info())
