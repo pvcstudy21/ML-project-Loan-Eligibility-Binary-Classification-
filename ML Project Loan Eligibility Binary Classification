@@ -86,3 +86,18 @@ print(sns.heatmap(df.corr(),annot=True))
 # droping unnecessary collumns
 
 df = df.drop(["Loan_ID"],axis=1)
+print(df)
+
+# Handling Outliers
+
+def remove_outliers(column):
+    q1 = column.quantile(0.25)
+    q3 = column.quantile(0.75)
+    iqr = q3 - q1
+    lower_bound = q1 - 1.5 * iqr
+    upper_bound = q3 + 1.5 * iqr
+    return column[(column >= lower_bound) & (column <= upper_bound)]
+
+new_df = df.apply(lambda col: remove_outliers(col) if np.issubdtype(col.dtype, np.number) else col)
+
+print(new_df)
