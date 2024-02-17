@@ -65,5 +65,18 @@ print(sns.boxenplot(df["LoanAmount"]))
 print(sns.boxenplot(df["Loan_Amount_Term"]))
 print(sns.boxenplot(df["Credit_History"]))
 
+# Check outliers
+
+Q1 = df.quantile(0.25)
+Q3 = df.quantile(0.75)
+IQR = Q3-Q1
+
+LowerTail = Q1-1.5*IQR
+UpperTail = Q3+1.5*IQR
+
+show_outliers = (df<LowerTail)|(df>UpperTail)
+outlier_count = show_outliers.sum()
+print(outlier_count)
+
 # finding correlation
 print(sns.heatmap(df.corr(),annot=True))
