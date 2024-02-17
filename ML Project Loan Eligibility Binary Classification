@@ -173,3 +173,10 @@ print(new_df.info())                                                            
 
 std_scaler = StandardScaler()
 std_scaler.fit_transform(new_df)
+
+# Feature Selection
+
+# Checking Linearity (Corelation between Dependant and Independant Columns) After Feature Engineering
+
+print(new_df.corr())
+print(sns.heatmap(new_df.corr(),annot=True))
