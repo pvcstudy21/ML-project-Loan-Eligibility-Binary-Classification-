@@ -199,3 +199,39 @@ log_reg.fit(x_train,y_train)
 
 y_train_pred = log_reg.predict(x_train)
 y_test_pred = log_reg.predict(x_test)
+
+# model evaluation for Logistic Regression
+
+# for training
+
+accuracy_Train = accuracy_score(y_train,y_train_pred)
+print(f"accuracy score for training = {accuracy_Train}")
+print("*"*60)
+conf_matrix_Train = confusion_matrix(y_train,y_train_pred)
+print("confusion matrix for training")
+plt.figure(figsize=(4, 2))
+sns.heatmap(conf_matrix_Train, annot=True, fmt='.2f', cmap='coolwarm') 
+plt.xlabel('Predicted')
+plt.ylabel('Actual')
+plt.show()
+print("*"*60)
+class_report_Train = classification_report(y_train,y_train_pred)
+print("classisfication report for training")
+print(class_report_Train)
+
+# for testing
+
+accuracy_Test = accuracy_score(y_test,y_test_pred)
+print(f"accuracy score for testing = {accuracy_Test}")
+print("*"*60)
+conf_matrix_Test = confusion_matrix(y_test,y_test_pred)
+print("confusion matrix for testing")
+plt.figure(figsize=(4, 2))
+sns.heatmap(conf_matrix_Test, annot=True, fmt='.2f', cmap='coolwarm') 
+plt.xlabel('Predicted')
+plt.ylabel('Actual')
+plt.show()
+print("*"*60)
+class_report_Test = classification_report(y_test,y_test_pred)
+print("classisfication report for testing")
+print(class_report_Test)
