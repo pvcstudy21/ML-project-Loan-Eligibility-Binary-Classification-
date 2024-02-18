@@ -322,3 +322,39 @@ Tuned_dt_model.fit(x_train,y_train)
 
 y_train_pred_dt_tuned = Tuned_dt_model.predict(x_train)
 y_test_pred_dt_tuned = Tuned_dt_model.predict(x_test)
+
+# Model Evaluation After Tuning And Cross Validation
+
+# for training
+
+accuracy_Train_dt_tuned = accuracy_score(y_train,y_train_pred_dt_tuned)
+print(f"accuracy score for training = {accuracy_Train_dt_tuned}")
+print("*"*60)
+conf_matrix_Train_dt_tuned = confusion_matrix(y_train,y_train_pred_dt_tuned)
+print("confusion matrix for training")
+plt.figure(figsize=(4, 2))
+sns.heatmap(conf_matrix_Train_dt_tuned, annot=True, fmt='.2f', cmap='coolwarm') 
+plt.xlabel('Predicted')
+plt.ylabel('Actual')
+plt.show()
+print("*"*60)
+class_report_Train_dt_tuned = classification_report(y_train,y_train_pred_dt_tuned)
+print("classisfication report for training")
+print(class_report_Train_dt_tuned)
+
+# For Testing
+
+accuracy_Test_dt_tuned = accuracy_score(y_test,y_test_pred_dt_tuned)
+print(f"accuracy score for testing = {accuracy_Test_dt_tuned}")
+print("*"*60)
+conf_matrix_Test_dt_tuned = confusion_matrix(y_test,y_test_pred_dt_tuned)
+print("confusion matrix for testing")
+plt.figure(figsize=(4, 2))
+sns.heatmap(conf_matrix_Test_dt_tuned, annot=True, fmt='.2f', cmap='coolwarm') 
+plt.xlabel('Predicted')
+plt.ylabel('Actual')
+plt.show()
+print("*"*60)
+class_report_Test_dt_tuned = classification_report(y_test,y_test_pred_dt_tuned)
+print("classisfication report for testing")
+print(class_report_Test_dt_tuned)
