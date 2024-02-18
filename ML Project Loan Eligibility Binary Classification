@@ -182,3 +182,12 @@ std_scaler.fit_transform(new_df)
 
 print(new_df.corr())
 print(sns.heatmap(new_df.corr(),annot=True))
+
+# Model Training
+
+# spliting the training and testing data
+
+x = new_df.drop(["Loan_Status"],axis=1)
+y = new_df["Loan_Status"]
+
+x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=0.2,random_state=10)
