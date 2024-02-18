@@ -358,3 +358,21 @@ print("*"*60)
 class_report_Test_dt_tuned = classification_report(y_test,y_test_pred_dt_tuned)
 print("classisfication report for testing")
 print(class_report_Test_dt_tuned)
+
+# ROC Curve
+
+prob_dt = Tuned_dt_model.predict_proba(x_train)                                     #actual probabilities
+
+fpr_dt,tpr_dt,th_dt = roc_curve(y_train,prob_dt[:,:1])
+
+plt.plot(tpr_dt,fpr_dt)
+plt.xlabel("FPR")
+plt.ylabel("TPR")
+plt.plot(y_train,y_train)
+plt.title("Receiver Operating Characteristic (ROC) Curve for DT")
+
+# ROC_AUC_Score
+
+ROC_AUC_Score_DT = roc_auc_score(y_train,prob_dt[:,:1])
+
+print(f"Area Under Curve (AUC) Score for decision tree = {ROC_AUC_Score_DT}")
