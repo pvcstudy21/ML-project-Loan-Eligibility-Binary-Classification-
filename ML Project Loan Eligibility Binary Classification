@@ -297,3 +297,9 @@ print("*"*60)
 class_report_Test_dt = classification_report(y_test,y_test_pred_dt)
 print("classisfication report for testing")
 print(class_report_Test_dt)
+
+# Plot Decision Tree
+
+plt.figure(figsize=(200,160))
+plot_tree(dt_clf, feature_names=x.columns,class_names=['0','1'],filled=True)
+plt.show()
