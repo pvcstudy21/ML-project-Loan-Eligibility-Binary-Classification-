@@ -253,3 +253,11 @@ plt.title("Receiver Operating Characteristic (ROC) Curve")
 ROC_AUC_Score = roc_auc_score(y_train,prob[:,:1])
 
 print(f"Area Under Curve (AUC) Score = {ROC_AUC_Score}")
+
+# Decision Tree Classifier
+
+dt_clf = DecisionTreeClassifier()
+dt_clf.fit(x_train,y_train)
+
+y_train_pred_dt = dt_clf.predict(x_train)
+y_test_pred_dt = dt_clf.predict(x_test)
