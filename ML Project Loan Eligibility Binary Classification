@@ -235,3 +235,21 @@ print("*"*60)
 class_report_Test = classification_report(y_test,y_test_pred)
 print("classisfication report for testing")
 print(class_report_Test)
+
+# ROC_Curve and ROC_AUC_Score
+
+prob = log_reg.predict_proba(x_train)                                        #actual probabilities
+
+fpr,tpr,th = roc_curve(y_train,prob[:,:1])
+
+plt.plot(tpr,fpr)
+plt.xlabel("FPR")
+plt.ylabel("TPR")
+plt.plot(y_train,y_train)
+plt.title("Receiver Operating Characteristic (ROC) Curve")
+
+# ROC_AUC_Score                                                 # Area Under Curve (AUC) Score
+
+ROC_AUC_Score = roc_auc_score(y_train,prob[:,:1])
+
+print(f"Area Under Curve (AUC) Score = {ROC_AUC_Score}")
