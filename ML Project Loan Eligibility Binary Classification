@@ -261,3 +261,39 @@ dt_clf.fit(x_train,y_train)
 
 y_train_pred_dt = dt_clf.predict(x_train)
 y_test_pred_dt = dt_clf.predict(x_test)
+
+# model evaluation for Decision Tree Classifier
+
+# for training
+
+accuracy_Train_dt = accuracy_score(y_train,y_train_pred_dt)
+print(f"accuracy score for training = {accuracy_Train_dt}")
+print("*"*60)
+conf_matrix_Train_dt = confusion_matrix(y_train,y_train_pred_dt)
+print("confusion matrix for training")
+plt.figure(figsize=(4, 2))
+sns.heatmap(conf_matrix_Train_dt, annot=True, fmt='.2f', cmap='coolwarm') 
+plt.xlabel('Predicted')
+plt.ylabel('Actual')
+plt.show()
+print("*"*60)
+class_report_Train_dt = classification_report(y_train,y_train_pred_dt)
+print("classisfication report for training")
+print(class_report_Train_dt)
+
+# for testing
+
+accuracy_Test_dt = accuracy_score(y_test,y_test_pred_dt)
+print(f"accuracy score for testing = {accuracy_Test_dt}")
+print("*"*60)
+conf_matrix_Test_dt = confusion_matrix(y_test,y_test_pred_dt)
+print("confusion matrix for testing")
+plt.figure(figsize=(4, 2))
+sns.heatmap(conf_matrix_Test_dt, annot=True, fmt='.2f', cmap='coolwarm') 
+plt.xlabel('Predicted')
+plt.ylabel('Actual')
+plt.show()
+print("*"*60)
+class_report_Test_dt = classification_report(y_test,y_test_pred_dt)
+print("classisfication report for testing")
+print(class_report_Test_dt)
