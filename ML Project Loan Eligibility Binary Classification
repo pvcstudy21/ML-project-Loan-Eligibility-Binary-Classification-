@@ -102,6 +102,10 @@ new_df = df.apply(lambda col: remove_outliers(col) if np.issubdtype(col.dtype, n
 
 print(new_df)
 
+show_outliers = (new_df<LowerTail)|(new_df>UpperTail)
+outlier_count = show_outliers.sum()
+print(outlier_count)
+
 # Handle missing values
 
 new_df.isna().sum()                          # ckecks if the column have missing values
@@ -124,6 +128,7 @@ new_df["Self_Employed"] = new_df["Self_Employed"].fillna("No")
 
 # ApplicantIncome column
 print(new_df["ApplicantIncome"].value_counts())
+print(new_df.describe())
 new_df["ApplicantIncome"] = new_df["ApplicantIncome"].fillna(4124.723404)           # mean value taken by new_df.describe()
 
 # CoapplicantIncome
@@ -142,7 +147,8 @@ new_df["Loan_Amount_Term"] = df["Loan_Amount_Term"].fillna(360.0)               
 
 # Credit_History
 df["Credit_History"].value_counts()
-new_df["Credit_History"] = new_df["Credit_History"].fillna(1.0)
+new_df["Credit_History"] = df["Credit_History"].fillna(1.0)                        # used df instead of new_df so data will get different values
+new_df["Credit_History"].replace({1.0:"1",0.0:"0"},inplace=True)                   # Used replace fuction to conver float to text so we can apply label encoding
 
 # checking data after imputation
 
@@ -151,19 +157,15 @@ print(new_df.info())
 
 # Encoding
 
-label_encoder_Gender = LabelEncoder()
-label_encoder_Married = LabelEncoder()
-label_encoder_Dependents = LabelEncoder()
-label_encoder_Education = LabelEncoder()
-label_encoder_Self_Employed = LabelEncoder()
-label_encoder_Loan_Status = LabelEncoder()
+label_encoder = LabelEncoder()
 
-new_df["Gender"] = label_encoder_Gender.fit_transform(new_df["Gender"])
-new_df["Married"] = label_encoder_Married.fit_transform(new_df["Married"])
-new_df["Dependents"] = label_encoder_Dependents.fit_transform(new_df["Dependents"])
-new_df["Education"] = label_encoder_Education.fit_transform(new_df["Education"])
-new_df["Self_Employed"] = label_encoder_Self_Employed.fit_transform(new_df["Self_Employed"])
-new_df["Loan_Status"] = label_encoder_Loan_Status.fit_transform(new_df["Loan_Status"])
+new_df["Gender"] = label_encoder.fit_transform(new_df["Gender"])
+new_df["Married"] = label_encoder.fit_transform(new_df["Married"])
+new_df["Dependents"] = label_encoder.fit_transform(new_df["Dependents"])
+new_df["Education"] = label_encoder.fit_transform(new_df["Education"])
+new_df["Self_Employed"] = label_encoder.fit_transform(new_df["Self_Employed"])
+new_df["Credit_History"] = label_encoder.fit_transform(new_df["Credit_History"])
+new_df["Loan_Status"] = label_encoder.fit_transform(new_df["Loan_Status"])
 
 new_df = pd.get_dummies(new_df,columns = ["Property_Area"])               # OneHotEncoding
 
