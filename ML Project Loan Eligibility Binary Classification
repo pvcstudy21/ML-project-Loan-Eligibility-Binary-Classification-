@@ -366,3 +366,111 @@ print("classisfication report for testing")
 print(class_report_Test_dt_tuned)
 
 Final_result("Decision Tree Classifier",accuracy_Train_dt_tuned,accuracy_Test_dt_tuned)
+
+# Ensemble Learning Techniques
+
+# Random Forest Classifier
+
+rf_clf = RandomForestClassifier()
+rf_clf.fit(x_train,y_train)
+
+y_train_pred_rf = rf_clf.predict(x_train)
+y_test_pred_rf = rf_clf.predict(x_test)
+
+# Model Evaluation For Random Forest Classifier
+
+# for training
+
+accuracy_Train_rf = accuracy_score(y_train,y_train_pred_rf)
+print(f"accuracy score for training = {accuracy_Train_rf}")
+print("*"*60)
+conf_matrix_Train_rf = confusion_matrix(y_train,y_train_pred_rf)
+print("confusion matrix for training")
+plt.figure(figsize=(4, 2))
+sns.heatmap(conf_matrix_Train_rf, annot=True, fmt='.2f', cmap='coolwarm') 
+plt.xlabel('Predicted')
+plt.ylabel('Actual')
+plt.show()
+print("*"*60)
+class_report_Train_rf = classification_report(y_train,y_train_pred_rf)
+print("classisfication report for training")
+print(class_report_Train_rf)
+
+# for testing
+
+accuracy_Test_rf = accuracy_score(y_test,y_test_pred_rf)
+print(f"accuracy score for testing = {accuracy_Test_rf}")
+print("*"*60)
+conf_matrix_Test_rf = confusion_matrix(y_test,y_test_pred_rf)
+print("confusion matrix for testing")
+plt.figure(figsize=(4, 2))
+sns.heatmap(conf_matrix_Test_rf, annot=True, fmt='.2f', cmap='coolwarm') 
+plt.xlabel('Predicted')
+plt.ylabel('Actual')
+plt.show()
+print("*"*60)
+class_report_Test_rf = classification_report(y_test,y_test_pred_rf)
+print("classisfication report for testing")
+print(class_report_Test_rf)
+
+# Hyperparameter Tuning And Cross Validation
+
+Hyperparameters_rf = {"n_estimators":np.arange(10,200),
+                      "criterion": ['gini','entropy'],
+                      "max_depth" : np.arange(5,15),
+                      "min_samples_split":np.arange(5,20),
+                      "min_samples_leaf":np.arange(4,15),
+                      "max_features":['auto']}
+
+RSCV_rf_clf = RandomizedSearchCV(rf_clf,Hyperparameters_rf,cv=6)
+
+RSCV_rf_clf.fit(x_train,y_train)
+
+RSCV_rf_clf.best_estimator_
+
+Tuned_rf_model = RandomForestClassifier(max_depth=11, max_features='auto',
+                       min_samples_leaf=5, min_samples_split=5,
+                       n_estimators=28)
+
+Tuned_rf_model.fit(x_train,y_train)
+
+y_train_pred_rf_tuned = Tuned_rf_model.predict(x_train)
+y_test_pred_rf_tuned = Tuned_rf_model.predict(x_test)
+
+# Model Evaluation After Hyperparameter Tuning And Cross Validation
+
+# for training
+
+accuracy_Train_rf_tuned = accuracy_score(y_train,y_train_pred_rf_tuned)
+print(f"accuracy score for training = {accuracy_Train_rf_tuned}")
+print("*"*60)
+conf_matrix_Train_rf_tuned = confusion_matrix(y_train,y_train_pred_rf_tuned)
+print("confusion matrix for training")
+plt.figure(figsize=(4, 2))
+sns.heatmap(conf_matrix_Train_rf_tuned, annot=True, fmt='.2f', cmap='coolwarm') 
+plt.xlabel('Predicted')
+plt.ylabel('Actual')
+plt.show()
+print("*"*60)
+class_report_Train_rf_tuned = classification_report(y_train,y_train_pred_rf_tuned)
+print("classisfication report for training")
+print(class_report_Train_rf_tuned)
+
+# For testing
+
+accuracy_Test_rf_tuned = accuracy_score(y_test,y_test_pred_rf_tuned)
+print(f"accuracy score for testing = {accuracy_Test_rf_tuned}")
+print("*"*60)
+conf_matrix_Test_rf_tuned = confusion_matrix(y_test,y_test_pred_rf_tuned)
+print("confusion matrix for testing")
+plt.figure(figsize=(4, 2))
+sns.heatmap(conf_matrix_Test_rf_tuned, annot=True, fmt='.2f', cmap='coolwarm') 
+plt.xlabel('Predicted')
+plt.ylabel('Actual')
+plt.show()
+print("*"*60)
+class_report_Test_rf_tuned = classification_report(y_test,y_test_pred_rf_tuned)
+print("classisfication report for testing")
+print(class_report_Test_rf_tuned)
+
+Final_result("Random Forest Classifier",accuracy_Train_rf_tuned,accuracy_Test_rf_tuned)
