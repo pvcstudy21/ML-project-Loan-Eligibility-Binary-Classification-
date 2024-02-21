@@ -7,8 +7,6 @@ import pandas as pd
 # for data visualizations
 import matplotlib.pyplot as plt
 import seaborn as sns
-import plotly.express as px
-import statsmodels.api as sm
 
 # for data preprocessing
 from sklearn.preprocessing import LabelEncoder,OneHotEncoder
@@ -20,23 +18,16 @@ from sklearn.model_selection import train_test_split,GridSearchCV,RandomizedSear
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier,plot_tree
 from sklearn.ensemble import RandomForestClassifier,AdaBoostClassifier
-from sklearn.svm import SVC
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.naive_bayes import GaussianNB,BernoulliNB
+from sklearn.naive_bayes import BernoulliNB
 
 # for model evaluation 
 
 from sklearn.metrics import accuracy_score,confusion_matrix,classification_report
 from sklearn.metrics import roc_curve,roc_auc_score
 
-# for basic statistical operations
-
-from statsmodels.stats.outliers_influence import variance_inflation_factor
-from scipy import stats
-from scipy.stats import shapiro
-
 # miscellaneous
-import pickle
+
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -171,10 +162,15 @@ new_df = pd.get_dummies(new_df,columns = ["Property_Area"])                     
 
 print(new_df.info())                                                                # to check if the text data is converted into numerical
 
-# scaling
+# Scaling
 
-std_scaler = StandardScaler()
-std_scaler.fit_transform(new_df)
+#std_scaler = StandardScaler()
+#std_scaler.fit_transform(new_df)
+
+# Normalization
+
+MinMax = MinMaxScaler()
+MinMax.fit_transform(new_df)
 
 # Feature Selection
 
@@ -200,7 +196,7 @@ log_reg.fit(x_train,y_train)
 y_train_pred = log_reg.predict(x_train)
 y_test_pred = log_reg.predict(x_test)
 
-# model evaluation for Logistic Regression
+# Model Evaluation For Logistic Regression
 
 # for training
 
@@ -236,7 +232,17 @@ class_report_Test = classification_report(y_test,y_test_pred)
 print("classisfication report for testing")
 print(class_report_Test)
 
-# ROC_Curve and ROC_AUC_Score
+result = []
+ 
+def Final_result(model_name, acc_score_training, acc_score_testing):
+     if model_name not in result:
+            result.append([model_name, (acc_score_training*100),(acc_score_testing*100)])
+            final_df = pd.DataFrame(result, columns=['Model Name', 'accurary score for training', 'accuracy score for testing'])
+            return final_df
+
+Final_result("Logistic Regression Training", accuracy_Train, accuracy_Test)
+
+# ROC_Curve
 
 prob = log_reg.predict_proba(x_train)                                        #actual probabilities
 
@@ -262,7 +268,7 @@ dt_clf.fit(x_train,y_train)
 y_train_pred_dt = dt_clf.predict(x_train)
 y_test_pred_dt = dt_clf.predict(x_test)
 
-# model evaluation for Decision Tree Classifier
+# Model Evaluation For Decision Tree Classifier
 
 # for training
 
@@ -359,20 +365,4 @@ class_report_Test_dt_tuned = classification_report(y_test,y_test_pred_dt_tuned)
 print("classisfication report for testing")
 print(class_report_Test_dt_tuned)
 
-# ROC Curve
-
-prob_dt = Tuned_dt_model.predict_proba(x_train)                                     #actual probabilities
-
-fpr_dt,tpr_dt,th_dt = roc_curve(y_train,prob_dt[:,:1])
-
-plt.plot(tpr_dt,fpr_dt)
-plt.xlabel("FPR")
-plt.ylabel("TPR")
-plt.plot(y_train,y_train)
-plt.title("Receiver Operating Characteristic (ROC) Curve for DT")
-
-# ROC_AUC_Score
-
-ROC_AUC_Score_DT = roc_auc_score(y_train,prob_dt[:,:1])
-
-print(f"Area Under Curve (AUC) Score for decision tree = {ROC_AUC_Score_DT}")
+Final_result("Decision Tree Classifier",accuracy_Train_dt_tuned,accuracy_Test_dt_tuned)
