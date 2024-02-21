@@ -534,3 +534,62 @@ print("classisfication report for testing")
 print(class_report_Test_adb_tuned)
 
 Final_result("Adaboost Classifier",accuracy_Train_adb_tuned,accuracy_Test_adb_tuned)
+
+# K-Nearest-Neighbours Classifier
+
+knn = KNeighborsClassifier()
+
+# Hyperparameter Tuning And Cross Validation
+
+hyp_knn = {"n_neighbors":np.arange(2,30),"p":[1,2]}
+
+RSCV_KNN = GridSearchCV(knn, hyp_knn, cv=5)
+
+RSCV_KNN.fit(x_train,y_train)
+
+RSCV_KNN.best_estimator_
+
+tuned_knn = KNeighborsClassifier(n_neighbors=23, p=1)
+
+tuned_knn.fit(x_train,y_train)
+
+y_train_pred_knn_tuned = tuned_knn.predict(x_train)
+y_test_pred_knn_tuned = tuned_knn.predict(x_test)
+
+# Model Evaluation For KNN Classifier
+
+# for training
+
+accuracy_Train_knn_tuned = accuracy_score(y_train,y_train_pred_knn_tuned)
+print(f"accuracy score for training = {accuracy_Train_knn_tuned}")
+print("*"*60)
+conf_matrix_Train_knn_tuned = confusion_matrix(y_train,y_train_pred_knn_tuned)
+print("confusion matrix for training")
+plt.figure(figsize=(4, 2))
+sns.heatmap(conf_matrix_Train_knn_tuned, annot=True, fmt='.2f', cmap='coolwarm') 
+plt.xlabel('Predicted')
+plt.ylabel('Actual')
+plt.show()
+print("*"*60)
+class_report_Train_knn_tuned = classification_report(y_train,y_train_pred_knn_tuned)
+print("classisfication report for training")
+print(class_report_Train_knn_tuned)
+
+# for testing
+
+accuracy_Test_knn_tuned = accuracy_score(y_test,y_test_pred_knn_tuned)
+print(f"accuracy score for testing = {accuracy_Test_knn_tuned}")
+print("*"*60)
+conf_matrix_Test_knn_tuned = confusion_matrix(y_test,y_test_pred_knn_tuned)
+print("confusion matrix for testing")
+plt.figure(figsize=(4, 2))
+sns.heatmap(conf_matrix_Test_knn_tuned, annot=True, fmt='.2f', cmap='coolwarm') 
+plt.xlabel('Predicted')
+plt.ylabel('Actual')
+plt.show()
+print("*"*60)
+class_report_Test_knn_tuned = classification_report(y_test,y_test_pred_knn_tuned)
+print("classisfication report for testing")
+print(class_report_Test_knn_tuned)
+
+Final_result("K-Nearest-Neighbours Classifier",accuracy_Train_knn_tuned,accuracy_Test_knn_tuned)
