@@ -641,3 +641,62 @@ print("classisfication report for testing")
 print(class_report_Test_svc)
 
 Final_result("Support Vector Classifier",accuracy_Train_scv,accuracy_Test_svc)
+
+# Naive Bayes Classifier (BernoulliNB for Binary Classification)
+
+bnb_clf = BernoulliNB()
+
+bnb_clf.fit(x_train,y_train)
+
+y_train_pred_bnb = bnb_clf.predict(x_train)
+y_test_pred_bnb = bnb_clf.predict(x_test)
+
+# Model Evaluation For Naive Bayes Classifier
+
+# for training
+
+accuracy_Train_bnb = accuracy_score(y_train,y_train_pred_bnb)
+print(f"accuracy score for training = {accuracy_Train_bnb}")
+print("*"*60)
+conf_matrix_Train_bnb = confusion_matrix(y_train,y_train_pred_bnb)
+print("confusion matrix for training")
+plt.figure(figsize=(4, 2))
+sns.heatmap(conf_matrix_Train_bnb, annot=True, fmt='.2f', cmap='coolwarm') 
+plt.xlabel('Predicted')
+plt.ylabel('Actual')
+plt.show()
+print("*"*60)
+class_report_Train_bnb = classification_report(y_train,y_train_pred_bnb)
+print("classisfication report for training")
+print(class_report_Train_bnb)
+
+# for testing
+
+accuracy_Test_bnb = accuracy_score(y_test,y_test_pred_bnb)
+print(f"accuracy score for testing = {accuracy_Test_bnb}")
+print("*"*60)
+conf_matrix_Test_bnb = confusion_matrix(y_test,y_test_pred_bnb)
+print("confusion matrix for testing")
+plt.figure(figsize=(4, 2))
+sns.heatmap(conf_matrix_Test_bnb, annot=True, fmt='.2f', cmap='coolwarm') 
+plt.xlabel('Predicted')
+plt.ylabel('Actual')
+plt.show()
+print("*"*60)
+class_report_Test_bnb = classification_report(y_test,y_test_pred_bnb)
+print("classisfication report for testing")
+print(class_report_Test_bnb)
+
+Final_result("Naive Bayes Classifier (BernoulliNB)",accuracy_Train_bnb,accuracy_Test_bnb)
+
+# Model Evaluation Conclusion
+
+final_evaluation = pd.DataFrame(result,columns=["Model Name","Accuracy Score For Training","Accuracy Score For Testing"])
+print(final_evaluation)
+
+# Conclusion
+
+print('''In the Load Eligibility machine learning project, seven algorithms were tested to predict Loan Status, with the Random Forest Classifier emerging as the most accurate model. 
+With hyperparameter tuning, the Random Forest model achieved 83% accuracy on the training data and 80% accuracy on the testing data. 
+This underscores the effectiveness of machine learning techniques in accurately predicting Loan Status, with Random Forest demonstrating superior performance in this context.
+''')
