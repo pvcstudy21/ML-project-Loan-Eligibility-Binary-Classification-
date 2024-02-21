@@ -474,3 +474,63 @@ print("classisfication report for testing")
 print(class_report_Test_rf_tuned)
 
 Final_result("Random Forest Classifier",accuracy_Train_rf_tuned,accuracy_Test_rf_tuned)
+
+# Adaboost (Adaptive Boosting) Classifier
+
+adb_clf = AdaBoostClassifier()
+
+# Hyperparameter Tuning And Cross validation
+
+hyp_adb = {"n_estimators":np.arange(10,200),
+       "learning_rate" : np.array([0.01,0,0.1,1])}
+
+rscv_adb_clf = RandomizedSearchCV(adb_clf, hyp_adb, cv = 6)
+
+rscv_adb_clf.fit(x_train,y_train)
+
+rscv_adb_clf.best_estimator_
+
+tuned_adb_model = AdaBoostClassifier(learning_rate=0.01, n_estimators=82)
+
+tuned_adb_model.fit(x_train,y_train)
+
+y_train_pred_abd_tuned = tuned_adb_model.predict(x_train)
+y_test_pred_adb_tuned = tuned_adb_model.predict(x_test)
+
+# Model Evaluation For AdaBoost Classiefier
+
+# for training 
+
+accuracy_Train_adb_tuned = accuracy_score(y_train,y_train_pred_abd_tuned)
+print(f"accuracy score for training = {accuracy_Train_adb_tuned}")
+print("*"*60)
+conf_matrix_Train_abd_tuned = confusion_matrix(y_train,y_train_pred_abd_tuned)
+print("confusion matrix for training")
+plt.figure(figsize=(4, 2))
+sns.heatmap(conf_matrix_Train_abd_tuned, annot=True, fmt='.2f', cmap='coolwarm') 
+plt.xlabel('Predicted')
+plt.ylabel('Actual')
+plt.show()
+print("*"*60)
+class_report_Train_abd_tuned = classification_report(y_train,y_train_pred_abd_tuned)
+print("classisfication report for training")
+print(class_report_Train_abd_tuned)
+
+# for testing
+
+accuracy_Test_adb_tuned = accuracy_score(y_test,y_test_pred_adb_tuned)
+print(f"accuracy score for testing = {accuracy_Test_adb_tuned}")
+print("*"*60)
+conf_matrix_Test_adb_tuned = confusion_matrix(y_test,y_test_pred_adb_tuned)
+print("confusion matrix for testing")
+plt.figure(figsize=(4, 2))
+sns.heatmap(conf_matrix_Test_adb_tuned, annot=True, fmt='.2f', cmap='coolwarm') 
+plt.xlabel('Predicted')
+plt.ylabel('Actual')
+plt.show()
+print("*"*60)
+class_report_Test_adb_tuned = classification_report(y_test,y_test_pred_adb_tuned)
+print("classisfication report for testing")
+print(class_report_Test_adb_tuned)
+
+Final_result("Adaboost Classifier",accuracy_Train_adb_tuned,accuracy_Test_adb_tuned)
