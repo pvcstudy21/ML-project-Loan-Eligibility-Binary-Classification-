@@ -19,6 +19,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier,plot_tree
 from sklearn.ensemble import RandomForestClassifier,AdaBoostClassifier
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.svm import SVC
 from sklearn.naive_bayes import BernoulliNB
 
 # for model evaluation 
@@ -593,3 +594,50 @@ print("classisfication report for testing")
 print(class_report_Test_knn_tuned)
 
 Final_result("K-Nearest-Neighbours Classifier",accuracy_Train_knn_tuned,accuracy_Test_knn_tuned)
+
+# Support Vector Machine
+
+svc = SVC()
+
+svc.fit(x_train,y_train)
+
+y_train_pred_scv = svc.predict(x_train)
+y_test_pred_scv = svc.predict(x_test)
+
+# Model Evaluation For Support Vector Machine
+
+# for training
+
+accuracy_Train_scv = accuracy_score(y_train,y_train_pred_scv)
+print(f"accuracy score for training = {accuracy_Train_scv}")
+print("*"*60)
+conf_matrix_Train_svc = confusion_matrix(y_train,y_train_pred_scv)
+print("confusion matrix for training")
+plt.figure(figsize=(4, 2))
+sns.heatmap(conf_matrix_Train_svc, annot=True, fmt='.2f', cmap='coolwarm') 
+plt.xlabel('Predicted')
+plt.ylabel('Actual')
+plt.show()
+print("*"*60)
+class_report_Train_svc = classification_report(y_train,y_train_pred_scv)
+print("classisfication report for training")
+print(class_report_Train_svc)
+
+# for testing
+
+accuracy_Test_svc = accuracy_score(y_test,y_test_pred_scv)
+print(f"accuracy score for testing = {accuracy_Test_svc}")
+print("*"*60)
+conf_matrix_Test_svc = confusion_matrix(y_test,y_test_pred_scv)
+print("confusion matrix for testing")
+plt.figure(figsize=(4, 2))
+sns.heatmap(conf_matrix_Test_svc, annot=True, fmt='.2f', cmap='coolwarm') 
+plt.xlabel('Predicted')
+plt.ylabel('Actual')
+plt.show()
+print("*"*60)
+class_report_Test_svc = classification_report(y_test,y_test_pred_scv)
+print("classisfication report for testing")
+print(class_report_Test_svc)
+
+Final_result("Support Vector Classifier",accuracy_Train_scv,accuracy_Test_svc)
